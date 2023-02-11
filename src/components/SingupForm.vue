@@ -1,9 +1,9 @@
 <template>
-  <form>
+  <form @submit.prevent="handleSubmit">
     <label>Email:</label>
     <input type="email" v-model="email" required />
 
-    <label>Password:</label>
+    <label>Password:{{ passwordError }}</label>
     <input type="password" v-model="password" required />
 
     <label>Role:</label>
@@ -38,6 +38,7 @@ export default {
       terms: false,
       tempSkill: "",
       skills: [],
+      passwordError: '',
     };
   },
   methods: {
@@ -51,6 +52,17 @@ export default {
     },
     deleteSkill(skill){
         this.skills = this.skills.filter((item)=>{item!==skill})
+    },
+    handleSubmit() {
+      this.passwordError = this.password.length > 5 ? '' : 'minimum 6 char '
+      if(!this.passwordError){
+        console.log(`email: ${this.email}`)
+        console.log(`password: ${this.password}`)
+        console.log(`skills: ${this.skills}`)
+        console.log(`terms: ${this.terms}`)
+        console.log(`role: ${this.role}`)
+        
+      }
     }
   },
 };
